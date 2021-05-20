@@ -5,9 +5,9 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'pushpendra', age: 23 },
-      { name: 'piiyu', age: 20},
-      { name: 'priya', age: 20 }
+      {id:'1', name: 'pushpendra', age: 23 },
+      {id:'2' ,name: 'piiyu', age: 20},
+      {id:'ssd', name: 'priya', age: 20 }
     ],
     otherState: 'some other value',
     showperson:false
@@ -24,19 +24,29 @@ class App extends Component {
       ]
     });
   };
-  switchNamed = (abc) =>{
-    this.setState({
-      persons: [
-        { name: abc.target.value, age: 28 },
-        { name: 'Manu', age: 29 },
-        { name: 'Stephanie', age: 27 }
-      ]
+  switchNamed = (event,id) =>{
+    const personindex=this.state.persons.findIndex(p=>{
+      return p.id===id;
     });
-  } ;
+    const person={...this.state.persons[personindex]
+    };
+    console.log(person);
+    person.name=event.target.value;
+    const persons=[...this.state.persons];
+    persons[personindex]=person;
+
+    this.setState({persons:persons});
+  } 
 toggelerHandler=()=>{
-  const togg=this.state.showperson
-     this.setState({showperson:!togg})
-}
+  const togg=this.state.showperson;
+     this.setState({showperson:!togg});
+};
+
+deletehandler=(indexs)=>{
+  const persons=this.state.persons;
+  persons.splice(indexs,1);
+  this.setState({persons: persons});
+};
   render() {
     const style ={
        backgroundColor: 'white',
@@ -49,22 +59,13 @@ toggelerHandler=()=>{
    if(this.state.showperson){
    pet=(
     <div>
-    <Person
-      name={this.state.persons[0].name}
-      age={this.state.persons[0].age}
-      changed={this.switchNamed }
-   />
-   <Person
-      name={this.state.persons[1].name}
-      age={this.state.persons[1].age}
-      click={this.switchNameHandler.bind(this,'pushpa')}
-    >
-     My Hobbies: Racing
-   </Person>
-   <Person
-       name={this.state.persons[2].name}
-       age={this.state.persons[2].age}
-   />
+      {this.state.persons.map((person,index)=>{
+        return <Person name={person.name} age={person.age}
+        click={()=>this.deletehandler(index)}
+        key={person.id}
+        changed={(event)=>this.switchNamed(event,person.id)}/>
+      })}
+   
  </div>
  
    );
