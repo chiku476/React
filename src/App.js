@@ -2,19 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
-import styled from 'styled-components'
-const StyleButton=styled.button`
-background-color: ${(props)=> props.alt?  'red': 'green'};
-color: white;
-font: inherit;
-border: 1px solid blue;
-padding: 8px;
-cursor: pointer;
-&:hover {
-  background-color:  ${(props)=> props.alt?  'salmon': 'lightgreen'};
-  color: black;
-}
-`;
+//import styled from 'styled-components'
+
 class App extends Component {
   state = {
     persons: [
@@ -58,18 +47,7 @@ class App extends Component {
   }
 
   render () {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
+    
 
     let persons = null;
 
@@ -101,8 +79,8 @@ class App extends Component {
         <div className="App">
           <h1>Hi, I'm a React App</h1>
           <p className={classes.join( ' ' )}>This is really working!</p>
-          <StyleButton alt={this.state.showPersons}
-            onClick={this.togglePersonsHandler}>Toggle Persons</StyleButton>
+          <button className="button"
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
           {persons}
         </div>
       </StyleRoot>
