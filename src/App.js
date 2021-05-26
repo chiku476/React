@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
-import Radium, { StyleRoot } from 'radium';
+import Doss from'./App.css';
 import Person from './Person/Person';
 //import styled from 'styled-components'
 
@@ -50,7 +49,7 @@ class App extends Component {
     
 
     let persons = null;
-
+    let mycss=' ';
     if ( this.state.showPersons ) {
       persons = (
         <div>
@@ -64,29 +63,30 @@ class App extends Component {
           } )}
         </div>
       );
+      mycss=Doss.Red;
     }
 
     const classes = [];
     if ( this.state.persons.length <= 2 ) {
-      classes.push( 'red' ); // classes = ['red']
+      classes.push( Doss.red ); // classes = ['red']
     }
     if ( this.state.persons.length <= 1 ) {
-      classes.push( 'bold' ); // classes = ['red', 'bold']
+      classes.push( Doss.bold ); // classes = ['red', 'bold']
     }
 
     return (
-      <StyleRoot>
-        <div className="App">
+      <div>
+        <div className={Doss.App}>
           <h1>Hi, I'm a React App</h1>
           <p className={classes.join( ' ' )}>This is really working!</p>
-          <button className="button"
+          <button className={mycss }
             onClick={this.togglePersonsHandler}>Toggle Persons</button>
           {persons}
         </div>
-      </StyleRoot>
+      </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
-export default Radium( App );
+export default ( App );
